@@ -1,0 +1,24 @@
+{
+    "name": "typescript",
+    "version": "1.0.0",
+    "description": "This is a project to learn Type Script",
+    "main": "index.html",
+    "scripts": {
+        "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/rudhrainfogain/TypeScript.git"
+    },
+    "author": "Rudhra Koul",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/rudhrainfogain/TypeScript/issues"
+    },
+    "homepage": "https://github.com/rudhrainfogain/TypeScript#readme",
+    "devDependencies": {
+        "concurrently": "^5.2.0",
+        "lite-server": "^2.5.4"
+    }
+}
