@@ -1,0 +1,9 @@
+{
+    "server": {
+        "baseDir": "Section1",
+        "index": "/index.html",
+        "routes": {
+            "/node_modules": "node_modules"
+        }
+    }
+}
