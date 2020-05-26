@@ -1,6 +1,6 @@
 {
     "server": {
-        "baseDir": "Section1",
+        "baseDir": "Section2",
         "index": "/index.html",
         "routes": {
             "/node_modules": "node_modules"
