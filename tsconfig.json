@@ -16,8 +16,8 @@
     // "declarationMap": true,                /* Generates a sourcemap for each corresponding '.d.ts' file. */
     "sourceMap": true /* Generates corresponding '.map' file. */,
     // "outFile": "./",                       /* Concatenate and emit output to single file. */
-    "outDir": "./Section3/dist" /* Redirect output structure to the directory. */,
-    "rootDir": "./Section3/src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    "outDir": "./Section4/dist" /* Redirect output structure to the directory. */,
+    "rootDir": "./Section4/src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
     // "composite": true,                     /* Enable project compilation */
     // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */
     // "removeComments": true /* Do not emit comments to output. */,
@@ -68,5 +68,5 @@
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "exclude": ["./Section1/*", "./Section2/*"]
+  "exclude": ["./Section1/*", "./Section2/*", "./Section3/*"]
 }
