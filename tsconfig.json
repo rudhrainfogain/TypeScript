@@ -4,7 +4,7 @@
 
     /* Basic Options */
     // "incremental": true,                   /* Enable incremental compilation */
-    "target": "ES2015" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */,
+    "target": "es6" /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */,
     "module": "es2015" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */,
     //"lib": [],
     //"lib": ["dom", "es6", "dom.iterable", "scripthost"],
@@ -17,8 +17,8 @@
     "sourceMap": true /* Generates corresponding '.map' file. */,
     "sourceRoot": "../" /*Specifies the location where debugger should locate TypeScript files instead of source locations.*/,
     // "outFile": "./",                       /* Concatenate and emit output to single file. */
-    "outDir": "./Section7/dist" /* Redirect output structure to the directory. */,
-    "rootDir": "./Section7/src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    "outDir": "./Section8/dist" /* Redirect output structure to the directory. */,
+    "rootDir": "./Section8/src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
     // "composite": true,                     /* Enable project compilation */
     // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */
     // "removeComments": true /* Do not emit comments to output. */,
@@ -62,12 +62,20 @@
     // "inlineSources": true,                 /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */
 
     /* Experimental Options */
-    // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
+    "experimentalDecorators": true /* Enables experimental support for ES7 decorators. */,
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
 
     /* Advanced Options */
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
   },
-  "exclude": ["./Section1/*", "./Section2/*", "./Section3/*", "./Section4/*", "./Section5/*", "./Section6/*"]
+  "exclude": [
+    "./Section1/*",
+    "./Section2/*",
+    "./Section3/*",
+    "./Section4/*",
+    "./Section5/*",
+    "./Section6/*",
+    "./Section7/*"
+  ]
 }
