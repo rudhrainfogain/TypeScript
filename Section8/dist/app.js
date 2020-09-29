@@ -21,18 +21,15 @@ function Logger(constructor) {
 }
 // Use the simple decorator at class level
 //this only points to the function doesnt execute it
-let Person = /** @class */ (() => {
-    let Person = class Person {
-        constructor() {
-            this.name = 'Rudhra';
-            console.log('Creating a person ');
-        }
-    };
-    Person = __decorate([
-        Logger
-    ], Person);
-    return Person;
-})();
+let Person = class Person {
+    constructor() {
+        this.name = 'Rudhra';
+        console.log('Creating a person ');
+    }
+};
+Person = __decorate([
+    Logger
+], Person);
 const person = new Person();
 console.log(person);
 console.log('');
@@ -52,18 +49,15 @@ function LoggerFactory(logString) {
 }
 //Using Decorator returned from a decorator factory
 //This executes the LoggerFactory function and the function returned from it is the real decorator
-let Human = /** @class */ (() => {
-    let Human = class Human {
-        constructor() {
-            this.name = 'Rudhra';
-            console.log('Creating a Human ');
-        }
-    };
-    Human = __decorate([
-        LoggerFactory('Logging - Human')
-    ], Human);
-    return Human;
-})();
+let Human = class Human {
+    constructor() {
+        this.name = 'Rudhra';
+        console.log('Creating a Human ');
+    }
+};
+Human = __decorate([
+    LoggerFactory('Logging - Human')
+], Human);
 const human = new Human();
 console.log(human);
 //More useful decorator example
@@ -81,19 +75,16 @@ function withTemplate(template, hookId) {
         }
     };
 }
-let HumanBeing = /** @class */ (() => {
-    let HumanBeing = class HumanBeing {
-        constructor() {
-            this.name = 'Rudhra';
-            console.log('Creating a HumanBeing ');
-        }
-    };
-    HumanBeing = __decorate([
-        LoggerFactory('Logging - HumanBeing'),
-        withTemplate('<h1> My Human Being</h1>', 'app')
-    ], HumanBeing);
-    return HumanBeing;
-})();
+let HumanBeing = class HumanBeing {
+    constructor() {
+        this.name = 'Rudhra';
+        console.log('Creating a HumanBeing ');
+    }
+};
+HumanBeing = __decorate([
+    LoggerFactory('Logging - HumanBeing'),
+    withTemplate('<h1> My Human Being</h1>', 'app')
+], HumanBeing);
 const humanBeing = new HumanBeing();
 console.log(human);
 console.log('');
@@ -103,29 +94,26 @@ function PropertyDecorator(target, propertyName) {
     console.log('Property Decorator');
     console.log(target, propertyName);
 }
-let Product = /** @class */ (() => {
-    class Product {
-        constructor(title, _price) {
-            this.title = title;
-            this._price = _price;
+class Product {
+    constructor(title, _price) {
+        this.title = title;
+        this._price = _price;
+    }
+    set price(val) {
+        if (val > 0) {
+            this.price = val;
         }
-        set price(val) {
-            if (val > 0) {
-                this.price = val;
-            }
-            else {
-                throw new Error('Invalid price -should be greater than 0');
-            }
-        }
-        getPriceWithTax(tax) {
-            return this._price * (1 + tax);
+        else {
+            throw new Error('Invalid price -should be greater than 0');
         }
     }
-    __decorate([
-        PropertyDecorator
-    ], Product.prototype, "title", void 0);
-    return Product;
-})();
+    getPriceWithTax(tax) {
+        return this._price * (1 + tax);
+    }
+}
+__decorate([
+    PropertyDecorator
+], Product.prototype, "title", void 0);
 console.log('');
 console.log('---------------- Accessor Decorators --------------------');
 console.log('');
@@ -135,29 +123,26 @@ function AccessorDecorator(target, name, descriptor) {
     console.log(name);
     console.log(descriptor);
 }
-let Item = /** @class */ (() => {
-    class Item {
-        constructor(title, _price) {
-            this.title = title;
-            this._price = _price;
+class Item {
+    constructor(title, _price) {
+        this.title = title;
+        this._price = _price;
+    }
+    set price(val) {
+        if (val > 0) {
+            this.price = val;
         }
-        set price(val) {
-            if (val > 0) {
-                this.price = val;
-            }
-            else {
-                throw new Error('Invalid price -should be greater than 0');
-            }
-        }
-        getPriceWithTax(tax) {
-            return this._price * (1 + tax);
+        else {
+            throw new Error('Invalid price -should be greater than 0');
         }
     }
-    __decorate([
-        AccessorDecorator
-    ], Item.prototype, "price", null);
-    return Item;
-})();
+    getPriceWithTax(tax) {
+        return this._price * (1 + tax);
+    }
+}
+__decorate([
+    AccessorDecorator
+], Item.prototype, "price", null);
 console.log('');
 console.log('---------------- Method Decorators --------------------');
 console.log('');
@@ -167,29 +152,26 @@ function MethodDecorator(target, name, descriptor) {
     console.log(name);
     console.log(descriptor);
 }
-let Commodity = /** @class */ (() => {
-    class Commodity {
-        constructor(title, _price) {
-            this.title = title;
-            this._price = _price;
+class Commodity {
+    constructor(title, _price) {
+        this.title = title;
+        this._price = _price;
+    }
+    set price(val) {
+        if (val > 0) {
+            this.price = val;
         }
-        set price(val) {
-            if (val > 0) {
-                this.price = val;
-            }
-            else {
-                throw new Error('Invalid price -should be greater than 0');
-            }
-        }
-        getPriceWithTax(tax) {
-            return this._price * (1 + tax);
+        else {
+            throw new Error('Invalid price -should be greater than 0');
         }
     }
-    __decorate([
-        MethodDecorator
-    ], Commodity.prototype, "getPriceWithTax", null);
-    return Commodity;
-})();
+    getPriceWithTax(tax) {
+        return this._price * (1 + tax);
+    }
+}
+__decorate([
+    MethodDecorator
+], Commodity.prototype, "getPriceWithTax", null);
 console.log('');
 console.log('---------------- Parameter Decorators --------------------');
 console.log('');
@@ -199,29 +181,26 @@ function ParameterDecorator(target, name, position) {
     console.log(name);
     console.log(position);
 }
-let Goods = /** @class */ (() => {
-    class Goods {
-        constructor(title, _price) {
-            this.title = title;
-            this._price = _price;
+class Goods {
+    constructor(title, _price) {
+        this.title = title;
+        this._price = _price;
+    }
+    set price(val) {
+        if (val > 0) {
+            this.price = val;
         }
-        set price(val) {
-            if (val > 0) {
-                this.price = val;
-            }
-            else {
-                throw new Error('Invalid price -should be greater than 0');
-            }
-        }
-        getPriceWithTax(tax) {
-            return this._price * (1 + tax);
+        else {
+            throw new Error('Invalid price -should be greater than 0');
         }
     }
-    __decorate([
-        __param(0, ParameterDecorator)
-    ], Goods.prototype, "getPriceWithTax", null);
-    return Goods;
-})();
+    getPriceWithTax(tax) {
+        return this._price * (1 + tax);
+    }
+}
+__decorate([
+    __param(0, ParameterDecorator)
+], Goods.prototype, "getPriceWithTax", null);
 console.log('');
 console.log('----------------  Decorators with returns--------------------');
 console.log('');
@@ -258,20 +237,122 @@ function withTemplateReturn(template, hookId) {
     };
 }
 //The below decorator will modify the constructor function when class is loaded
-let HomoSapien = /** @class */ (() => {
-    let HomoSapien = class HomoSapien {
-        constructor() {
-            this.name = 'RudhraKoul';
-            console.log('Creating a HomoSapien ');
-        }
-    };
-    HomoSapien = __decorate([
-        withTemplateReturn('<h1> My Human Being</h1>', 'app1')
-    ], HomoSapien);
-    return HomoSapien;
-})();
+let HomoSapien = class HomoSapien {
+    constructor() {
+        this.name = 'RudhraKoul';
+        console.log('Creating a HomoSapien ');
+    }
+};
+HomoSapien = __decorate([
+    withTemplateReturn('<h1> My Human Being</h1>', 'app1')
+], HomoSapien);
 //The new constructor function is called only once the class is instantiated
 //so if we comment below lines we will see no output on the console
 const homoSapien = new HomoSapien();
 console.log(homoSapien);
+console.log('');
+console.log('----------------  Example Creating an AutoBind Decorator--------------------');
+console.log('');
+function Autobind(
+//the taget will be prototype of method since we are using it on instance methods
+//but since we dont need the target we will use an _ in the name
+//to tell ts that we will get this but wont use it
+_target, _name, descriptor) {
+    //The value property in PropertyDescriptor points to the method itself
+    //so we can use the value property to get a reference to the method
+    const originalMethod = descriptor.value;
+    //Lets create a new custom Property descriptor
+    const customDescriptor = {
+        configurable: true,
+        enumerable: false,
+        //Lets add a getter
+        //A getter acts as a property that holds the function
+        //Inside this getter we can run some logic before the actual value is returned
+        //the value in this case will be the function itself
+        //so we dont add a value property instead add a getter
+        get() {
+            //this here refercs to whatever is responsible to trigger this get method
+            // This will not be overridden by event listener as getter is kind of an extra layer in between
+            //Therefore this will refer to the object in which method was defined
+            const boundFunction = originalMethod.bind(this);
+            return boundFunction;
+        }
+    };
+    //since we are returning a new descriptor ts will replace the method descriptor thus overriding its configuration
+    return customDescriptor;
+}
+class Printer {
+    constructor() {
+        this.message = 'This works bro';
+    }
+    showMessage() {
+        console.log(this.message);
+    }
+}
+__decorate([
+    Autobind
+], Printer.prototype, "showMessage", null);
+const p = new Printer();
+const button = document.querySelector('button');
+//In a normal scenario ie without autobind decorator
+//The this keyword inside the showMessage method refers to the target of the event
+//ie the button not p so it will show undefined
+//but since we have the autobind decorator that calls the bind method and sets correct this reference it will work
+button.addEventListener('click', p.showMessage);
+console.log('');
+console.log('----------------  Example Validation with Decorator--------------------');
+console.log('');
+const registeredValidators = {};
+function Required(target, propName) {
+    registeredValidators[target.constructor.name] = Object.assign(Object.assign({}, registeredValidators[target.constructor.name]), { [propName]: ['required'] });
+}
+function PositiveNumber(target, propName) {
+    registeredValidators[target.constructor.name] = Object.assign(Object.assign({}, registeredValidators[target.constructor.name]), { [propName]: ['positive'] });
+}
+function validate(obj) {
+    const ObjValidatorConfig = registeredValidators[obj.constructor.name];
+    if (!ObjValidatorConfig) {
+        return true;
+    }
+    let isValid = true;
+    for (const prop in ObjValidatorConfig) {
+        for (const validator of ObjValidatorConfig[prop]) {
+            switch (validator) {
+                case 'required':
+                    isValid = isValid && !!obj[prop];
+                    break;
+                case 'positive':
+                    isValid = isValid && obj[prop] > 0;
+                    break;
+            }
+        }
+    }
+    return isValid;
+}
+class course {
+    constructor(t, pr) {
+        this.title = t;
+        this.price = pr;
+    }
+}
+__decorate([
+    Required
+], course.prototype, "title", void 0);
+__decorate([
+    PositiveNumber
+], course.prototype, "price", void 0);
+const courseForm = document.querySelector('form');
+courseForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const titleEl = document.getElementById('title');
+    const priceEl = document.getElementById('price');
+    const title = titleEl.value;
+    const price = +priceEl.value;
+    const createdCourse = new course(title, price);
+    if (!validate(createdCourse)) {
+        alert('Invalid input,please try again');
+        return;
+    }
+    console.log(createdCourse);
+});
 //# sourceMappingURL=app.js.map

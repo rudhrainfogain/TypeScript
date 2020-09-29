@@ -273,3 +273,129 @@ class HomoSapien {
 //so if we comment below lines we will see no output on the console
 const homoSapien = new HomoSapien();
 console.log(homoSapien);
+
+console.log('');
+console.log(
+  '----------------  Example Creating an AutoBind Decorator--------------------'
+);
+console.log('');
+
+function Autobind(
+  //the taget will be prototype of method since we are using it on instance methods
+  //but since we dont need the target we will use an _ in the name
+  //to tell ts that we will get this but wont use it
+  _target: any,
+  _name: string | Symbol,
+  descriptor: PropertyDescriptor
+) {
+  //The value property in PropertyDescriptor points to the method itself
+  //so we can use the value property to get a reference to the method
+  const originalMethod = descriptor.value;
+  //Lets create a new custom Property descriptor
+  const customDescriptor: PropertyDescriptor = {
+    configurable: true,
+    enumerable: false,
+    //Lets add a getter
+    //A getter acts as a property that holds the function
+    //Inside this getter we can run some logic before the actual value is returned
+    //the value in this case will be the function itself
+    //so we dont add a value property instead add a getter
+    get() {
+      //this here refercs to whatever is responsible to trigger this get method
+      // This will not be overridden by event listener as getter is kind of an extra layer in between
+      //Therefore this will refer to the object in which method was defined
+
+      const boundFunction = originalMethod.bind(this);
+      return boundFunction;
+    }
+  };
+  //since we are returning a new descriptor ts will replace the method descriptor thus overriding its configuration
+  return customDescriptor;
+}
+class Printer {
+  message = 'This works bro';
+
+  @Autobind
+  showMessage() {
+    console.log(this.message);
+  }
+}
+const p = new Printer();
+const button = document.querySelector('button')!;
+//In a normal scenario ie without autobind decorator
+//The this keyword inside the showMessage method refers to the target of the event
+//ie the button not p so it will show undefined
+//but since we have the autobind decorator that calls the bind method and sets correct this reference it will work
+button.addEventListener('click', p.showMessage);
+
+console.log('');
+console.log(
+  '----------------  Example Validation with Decorator--------------------'
+);
+console.log('');
+interface ValidatorConfig {
+  [property: string]: {
+    [validatableProp: string]: string[];
+  };
+}
+const registeredValidators: ValidatorConfig = {};
+function Required(target: any, propName: string) {
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: ['required']
+  };
+}
+
+function PositiveNumber(target: any, propName: string) {
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: ['positive']
+  };
+}
+
+function validate(obj: any) {
+  const ObjValidatorConfig = registeredValidators[obj.constructor.name];
+  if (!ObjValidatorConfig) {
+    return true;
+  }
+  let isValid = true;
+  for (const prop in ObjValidatorConfig) {
+    for (const validator of ObjValidatorConfig[prop]) {
+      switch (validator) {
+        case 'required':
+          isValid = isValid && !!obj[prop];
+          break;
+        case 'positive':
+          isValid = isValid && obj[prop] > 0;
+          break;
+      }
+    }
+  }
+  return isValid;
+}
+class course {
+  @Required
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(t: string, pr: number) {
+    this.title = t;
+    this.price = pr;
+  }
+}
+
+const courseForm: HTMLFormElement = document.querySelector('form')!;
+courseForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const titleEl = document.getElementById('title') as HTMLInputElement;
+  const priceEl = document.getElementById('price') as HTMLInputElement;
+  const title = titleEl.value;
+  const price = +priceEl.value;
+  const createdCourse = new course(title, price);
+  if (!validate(createdCourse)) {
+    alert('Invalid input,please try again');
+    return;
+  }
+  console.log(createdCourse);
+});
