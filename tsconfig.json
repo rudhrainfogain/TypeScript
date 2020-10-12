@@ -17,8 +17,8 @@
     "sourceMap": true /* Generates corresponding '.map' file. */,
     "sourceRoot": "../" /*Specifies the location where debugger should locate TypeScript files instead of source locations.*/,
     // "outFile": "./",                       /* Concatenate and emit output to single file. */
-    "outDir": "./Section8/dist" /* Redirect output structure to the directory. */,
-    "rootDir": "./Section8/src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    "outDir": "./Section9/dist" /* Redirect output structure to the directory. */,
+    "rootDir": "./Section9/src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
     // "composite": true,                     /* Enable project compilation */
     // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */
     // "removeComments": true /* Do not emit comments to output. */,
@@ -76,6 +76,7 @@
     "./Section4/*",
     "./Section5/*",
     "./Section6/*",
-    "./Section7/*"
+    "./Section7/*",
+    "./Section8/*"
   ]
 }
