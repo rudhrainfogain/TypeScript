@@ -71,7 +71,48 @@ class ProjectInput {
   @autobind
   private submitHandler(event: Event) {
     event.preventDefault();
-    console.log(this.titleInputElement.value);
+    //call gatherUserInput to gather the data received in form after validation
+    const userInput = this.gatherUserInput();
+    if (Array.isArray(userInput)) {
+      //if data is use destructuring to get indivisual values
+      const [title, description, people] = userInput;
+      //print values to console
+      console.log(
+        'title is : ' +
+          title +
+          ' description is : ' +
+          description +
+          ' no of people is : ' +
+          people
+      );
+    }
+    //clear user input from form
+    this.clearUserInput();
+  }
+  private clearUserInput() {
+    //clear the entered values from the form
+    this.titleInputElement.value = '';
+    this.descriptionInputElement.value = '';
+    this.peopleInputElement.value = '';
+  }
+  private gatherUserInput(): [string, string, number] | void {
+    //fetch user input from inputElements
+    const titleInput = this.titleInputElement.value;
+    const descriptionInput = this.descriptionInputElement.value;
+    const peopleInput = this.peopleInputElement.value;
+
+    //validate the input
+    if (
+      titleInput.trim().length === 0 ||
+      descriptionInput.trim().length === 0 ||
+      peopleInput.trim().length === 0
+    ) {
+      //show alert for invalid input
+      alert('Invalid input please try again!!!!');
+    } else {
+      //return tuple if input is valid
+      return [titleInput, descriptionInput, +peopleInput];
+    }
   }
 
   private configure() {
