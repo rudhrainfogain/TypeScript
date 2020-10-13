@@ -24,6 +24,40 @@ function autobind(_target, _methodName, descriptor) {
     //return the adjusted descriptor
     return adjustedDescriptor;
 }
+//validate function
+function validate(validatebleInput) {
+    let isValid = true;
+    //required validation
+    if (validatebleInput.required) {
+        isValid = isValid && validatebleInput.value.toString().trim().length !== 0;
+    }
+    //validations for string
+    if (typeof validatebleInput.value === 'string') {
+        //min length validation
+        if (validatebleInput.minLength != null) {
+            isValid =
+                isValid && validatebleInput.value.length >= validatebleInput.minLength;
+        }
+        //max length validation
+        if (validatebleInput.maxLength != null) {
+            isValid =
+                isValid && validatebleInput.value.length <= validatebleInput.maxLength;
+        }
+    }
+    //validations for number
+    if (typeof validatebleInput.value === 'number') {
+        //min length validation
+        if (validatebleInput.min != null) {
+            isValid = isValid && validatebleInput.value >= validatebleInput.min;
+        }
+        //max length validation
+        if (validatebleInput.max != null) {
+            isValid = isValid && validatebleInput.value <= validatebleInput.max;
+        }
+    }
+    //return final validation result
+    return isValid;
+}
 //Project Input class
 class ProjectInput {
     constructor() {
@@ -78,10 +112,26 @@ class ProjectInput {
         const titleInput = this.titleInputElement.value;
         const descriptionInput = this.descriptionInputElement.value;
         const peopleInput = this.peopleInputElement.value;
-        //validate the input
-        if (titleInput.trim().length === 0 ||
-            descriptionInput.trim().length === 0 ||
-            peopleInput.trim().length === 0) {
+        //Create validatabale objects for user inputs
+        const validatableTitle = {
+            value: titleInput,
+            required: true
+        };
+        const validatableDescription = {
+            value: descriptionInput,
+            required: true,
+            minLength: 5
+        };
+        const validatablePeople = {
+            value: +peopleInput,
+            required: true,
+            min: 1,
+            max: 5
+        };
+        //validate the input by calling validate function
+        if (!validate(validatableTitle) ||
+            !validate(validatableDescription) ||
+            !validate(validatablePeople)) {
             //show alert for invalid input
             alert('Invalid input please try again!!!!');
         }
