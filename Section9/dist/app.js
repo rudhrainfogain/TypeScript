@@ -58,6 +58,38 @@ function validate(validatebleInput) {
     //return final validation result
     return isValid;
 }
+//Project List class
+class ProjectList {
+    constructor(type) {
+        this.type = type;
+        //get access to template and div
+        this.templateElement = document.getElementById('project-list');
+        this.hostElement = document.getElementById('app');
+        //import content from template
+        const importedNode = document.importNode(this.templateElement.content, true);
+        //access the section
+        this.element = importedNode.firstElementChild;
+        //Add style to form dynamically based on the type of project
+        this.element.id = `${this.type}-projects`;
+        //add element to dom
+        this.attach();
+        //render data
+        this.renderContent();
+    }
+    renderContent() {
+        //Create id for ul dynamically based on the type of project
+        const listId = `${this.type}-projects-list`;
+        //fetch the ul tag and add this id to it
+        this.element.querySelector('ul').id = listId;
+        //fetch the h2 tag and set its value dynamically based on the type of project
+        this.element.querySelector('h2').textContent =
+            this.type.toUpperCase() + ' PROJECTS';
+    }
+    attach() {
+        //add element to div
+        this.hostElement.insertAdjacentElement('beforeend', this.element);
+    }
+}
 //Project Input class
 class ProjectInput {
     constructor() {
@@ -149,4 +181,6 @@ __decorate([
     autobind
 ], ProjectInput.prototype, "submitHandler", null);
 const prjInput = new ProjectInput();
+const activeProjectsList = new ProjectList('active');
+const finishedProjectsList = new ProjectList('finished');
 //# sourceMappingURL=app.js.map
