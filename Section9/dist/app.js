@@ -130,8 +130,15 @@ class ProjectList {
         this.assignedProjects = [];
         //add a listener to project state
         projectState.addListener((projects) => {
-            //save projects array copy to assignedProjects
-            this.assignedProjects = projects;
+            //filter the projects list based on status
+            const relevantProjects = projects.filter(prj => {
+                if (this.type === 'active') {
+                    return prj.status === ProjectStatus.Active;
+                }
+                return prj.status === ProjectStatus.Finished;
+            });
+            //save relevant array to assignedProjects
+            this.assignedProjects = relevantProjects;
             //call method to render all projects to list
             this.renderProjects();
         });
@@ -144,6 +151,8 @@ class ProjectList {
     renderProjects() {
         //fetch the list
         const listElement = document.getElementById(`${this.type}-projects-list`);
+        //clear already rendered items
+        listElement.innerHTML = '';
         //loop through all the projects
         for (const project of this.assignedProjects) {
             //create a new list item
