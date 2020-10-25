@@ -1,9 +1,26 @@
+//Project Status
+enum ProjectStatus {
+  Active,
+  Finished
+}
+//Project
+class Project {
+  constructor(
+    public projectId: string,
+    public title: string,
+    public description: string,
+    public numOfPeople: number,
+    public status: ProjectStatus
+  ) {}
+}
+//Type for listeners
+type Listener = (items: Project[]) => void;
 //Project State Management
 class ProjectState {
   //field to store projects
-  private projects: any[] = [];
+  private projects: Project[] = [];
   //field for listeners
-  private listeners: any[] = [];
+  private listeners: Listener[] = [];
   //private instance
   private static instance: ProjectState;
   //private constructor so that class cant be instantiated from outside
@@ -21,12 +38,13 @@ class ProjectState {
   //public method to addProjects to above array
   addProject(title: string, description: string, numOfPeople: number) {
     //create a new project
-    const newProject = {
-      projectId: Math.random().toString(),
-      title: title,
-      description: description,
-      numOfPeople: numOfPeople
-    };
+    const newProject = new Project(
+      Math.random().toString(),
+      title,
+      description,
+      numOfPeople,
+      ProjectStatus.Active
+    );
     //add this project to projects array
     this.projects.push(newProject);
     //call all listener functions whenever a new project is added
@@ -36,7 +54,7 @@ class ProjectState {
     }
   }
   // method to register a new listener
-  addListener(listener: Function) {
+  addListener(listener: Listener) {
     //add the listener to listeners array
     this.listeners.push(listener);
   }
@@ -115,7 +133,7 @@ class ProjectList {
   templateElement: HTMLTemplateElement;
   hostElement: HTMLDivElement;
   element: HTMLElement;
-  assignedProjects: any[];
+  assignedProjects: Project[];
   constructor(private type: 'active' | 'finished') {
     //get access to template and div
     this.templateElement = document.getElementById(
@@ -135,7 +153,7 @@ class ProjectList {
     //set assigned projects to an empty array
     this.assignedProjects = [];
     //add a listener to project state
-    projectState.addListener((projects: any[]) => {
+    projectState.addListener((projects: Project[]) => {
       //save projects array copy to assignedProjects
       this.assignedProjects = projects;
       //call method to render all projects to list
