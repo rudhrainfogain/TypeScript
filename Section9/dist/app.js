@@ -161,7 +161,16 @@ class ProjectItem extends Component {
             return `${this.project.numOfPeople} persons`;
         }
     }
-    configure() { }
+    dragStartHandler(event) {
+        console.log('drag start', event);
+    }
+    dragEndHandler(event) {
+        console.log('drag end', event);
+    }
+    configure() {
+        //add event listener to listen to dragstart event
+        this.element.addEventListener('dragstart', this.dragStartHandler);
+    }
     renderContent() {
         //select elements and set project details
         this.element.querySelector('h2').textContent = this.project.title;
@@ -169,6 +178,9 @@ class ProjectItem extends Component {
         this.element.querySelector('p').textContent = this.project.description;
     }
 }
+__decorate([
+    autobind
+], ProjectItem.prototype, "dragStartHandler", null);
 //Project List class
 class ProjectList extends Component {
     constructor(type) {
