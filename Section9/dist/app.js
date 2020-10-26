@@ -142,6 +142,33 @@ class Component {
         this.hostElement.insertAdjacentElement(this.attachPosition, this.element);
     }
 }
+//ProjectItem class to add a item to list
+class ProjectItem extends Component {
+    //Constructor
+    constructor(hostId, project) {
+        super('single-project', hostId, 'beforeend', project.projectId);
+        this.project = project;
+        //call configure method
+        this.configure();
+        //call rendercontent method
+        this.renderContent();
+    }
+    get persons() {
+        if (this.project.numOfPeople === 1) {
+            return '1 person';
+        }
+        else {
+            return `${this.project.numOfPeople} persons`;
+        }
+    }
+    configure() { }
+    renderContent() {
+        //select elements and set project details
+        this.element.querySelector('h2').textContent = this.project.title;
+        this.element.querySelector('h3').textContent = this.persons + ' assigned';
+        this.element.querySelector('p').textContent = this.project.description;
+    }
+}
 //Project List class
 class ProjectList extends Component {
     constructor(type) {
@@ -179,12 +206,8 @@ class ProjectList extends Component {
         listElement.innerHTML = '';
         //loop through all the projects
         for (const project of this.assignedProjects) {
-            //create a new list item
-            const listItem = document.createElement('li');
-            //set text of list item to project title
-            listItem.textContent = project.title;
-            //add list item to the list
-            listElement.appendChild(listItem);
+            //instantiate new ProjectItem to render to list
+            new ProjectItem(this.element.querySelector('ul').id, project);
         }
     }
     renderContent() {

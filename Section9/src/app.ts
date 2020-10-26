@@ -176,6 +176,34 @@ abstract class Component<T extends HTMLElement, U extends HTMLElement> {
   abstract configure(): void;
   abstract renderContent(): void;
 }
+//ProjectItem class to add a item to list
+class ProjectItem extends Component<HTMLUListElement, HTMLLIElement> {
+  //Field to hold the project to render
+  private project: Project;
+  get persons() {
+    if (this.project.numOfPeople === 1) {
+      return '1 person';
+    } else {
+      return `${this.project.numOfPeople} persons`;
+    }
+  }
+  //Constructor
+  constructor(hostId: string, project: Project) {
+    super('single-project', hostId, 'beforeend', project.projectId);
+    this.project = project;
+    //call configure method
+    this.configure();
+    //call rendercontent method
+    this.renderContent();
+  }
+  configure(): void {}
+  renderContent(): void {
+    //select elements and set project details
+    this.element.querySelector('h2')!.textContent = this.project.title;
+    this.element.querySelector('h3')!.textContent = this.persons + ' assigned';
+    this.element.querySelector('p')!.textContent = this.project.description;
+  }
+}
 //Project List class
 class ProjectList extends Component<HTMLDivElement, HTMLElement> {
   assignedProjects: Project[];
@@ -215,12 +243,8 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> {
     listElement.innerHTML = '';
     //loop through all the projects
     for (const project of this.assignedProjects) {
-      //create a new list item
-      const listItem = document.createElement('li');
-      //set text of list item to project title
-      listItem.textContent = project.title;
-      //add list item to the list
-      listElement.appendChild(listItem);
+      //instantiate new ProjectItem to render to list
+      new ProjectItem(this.element.querySelector('ul')!.id, project);
     }
   }
   renderContent() {
