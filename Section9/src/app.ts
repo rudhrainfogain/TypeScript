@@ -211,7 +211,10 @@ class ProjectItem
   }
   @autobind
   dragStartHandler(event: DragEvent): void {
-    console.log('drag start', event);
+    //set data to be transfered
+    event.dataTransfer!.setData('text/plain', this.project.projectId);
+    //set the allowed effect to move to signify the intent of moving the item for cursor changes on ui
+    event.dataTransfer!.effectAllowed = 'move';
   }
   dragEndHandler(event: DragEvent): void {
     console.log('drag end', event);
@@ -243,15 +246,19 @@ class ProjectList
   }
   @autobind
   dragOverHandler(event: DragEvent): void {
-    console.log('dragover', event);
-    //Fetch the ul element
-    const listEl = this.element.querySelector('ul')!;
-    //add droppable class to change ui on drag over
-    listEl.classList.add('droppable');
+    //check if we need to allow the drop
+    if (event.dataTransfer && event.dataTransfer.types[0] === 'text/plain') {
+      //allow the drop
+      event.preventDefault();
+      //Fetch the ul element
+      const listEl = this.element.querySelector('ul')!;
+      //add droppable class to change ui on drag over
+      listEl.classList.add('droppable');
+    }
   }
   @autobind
   dropHandler(event: DragEvent): void {
-    console.log('drop', event);
+    console.log('drop', event.dataTransfer!.getData('text/plain'));
   }
   @autobind
   dragLeaveHandler(event: DragEvent): void {

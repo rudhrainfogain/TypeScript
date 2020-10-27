@@ -162,7 +162,10 @@ class ProjectItem extends Component {
         }
     }
     dragStartHandler(event) {
-        console.log('drag start', event);
+        //set data to be transfered
+        event.dataTransfer.setData('text/plain', this.project.projectId);
+        //set the allowed effect to move to signify the intent of moving the item for cursor changes on ui
+        event.dataTransfer.effectAllowed = 'move';
     }
     dragEndHandler(event) {
         console.log('drag end', event);
@@ -194,14 +197,18 @@ class ProjectList extends Component {
         this.renderContent();
     }
     dragOverHandler(event) {
-        console.log('dragover', event);
-        //Fetch the ul element
-        const listEl = this.element.querySelector('ul');
-        //add droppable class to change ui on drag over
-        listEl.classList.add('droppable');
+        //check if we need to allow the drop
+        if (event.dataTransfer && event.dataTransfer.types[0] === 'text/plain') {
+            //allow the drop
+            event.preventDefault();
+            //Fetch the ul element
+            const listEl = this.element.querySelector('ul');
+            //add droppable class to change ui on drag over
+            listEl.classList.add('droppable');
+        }
     }
     dropHandler(event) {
-        console.log('drop', event);
+        console.log('drop', event.dataTransfer.getData('text/plain'));
     }
     dragLeaveHandler(event) {
         console.log('dragLeave', event);
