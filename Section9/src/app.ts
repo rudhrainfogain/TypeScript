@@ -228,7 +228,9 @@ class ProjectItem
   }
 }
 //Project List class
-class ProjectList extends Component<HTMLDivElement, HTMLElement> {
+class ProjectList
+  extends Component<HTMLDivElement, HTMLElement>
+  implements DragTarget {
   assignedProjects: Project[];
   constructor(private type: 'active' | 'finished') {
     super('project-list', 'app', 'beforeend', `${type}-projects`);
@@ -239,8 +241,32 @@ class ProjectList extends Component<HTMLDivElement, HTMLElement> {
     //render data
     this.renderContent();
   }
+  @autobind
+  dragOverHandler(event: DragEvent): void {
+    console.log('dragover', event);
+    //Fetch the ul element
+    const listEl = this.element.querySelector('ul')!;
+    //add droppable class to change ui on drag over
+    listEl.classList.add('droppable');
+  }
+  @autobind
+  dropHandler(event: DragEvent): void {
+    console.log('drop', event);
+  }
+  @autobind
+  dragLeaveHandler(event: DragEvent): void {
+    console.log('dragLeave', event);
+    //Fetch the ul element
+    const listEl = this.element.querySelector('ul')!;
+    //remove the droppable class to revert ui changes on drag leave
+    listEl.classList.remove('droppable');
+  }
   //add listener logic now resides in configure
   configure() {
+    //add listeners for drag drop events
+    this.element.addEventListener('dragover', this.dragOverHandler);
+    this.element.addEventListener('drop', this.dropHandler);
+    this.element.addEventListener('dragleave', this.dragLeaveHandler);
     //add a listener to project state
     projectState.addListener((projects: Project[]) => {
       //filter the projects list based on status

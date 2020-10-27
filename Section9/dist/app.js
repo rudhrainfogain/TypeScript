@@ -193,8 +193,29 @@ class ProjectList extends Component {
         //render data
         this.renderContent();
     }
+    dragOverHandler(event) {
+        console.log('dragover', event);
+        //Fetch the ul element
+        const listEl = this.element.querySelector('ul');
+        //add droppable class to change ui on drag over
+        listEl.classList.add('droppable');
+    }
+    dropHandler(event) {
+        console.log('drop', event);
+    }
+    dragLeaveHandler(event) {
+        console.log('dragLeave', event);
+        //Fetch the ul element
+        const listEl = this.element.querySelector('ul');
+        //remove the droppable class to revert ui changes on drag leave
+        listEl.classList.remove('droppable');
+    }
     //add listener logic now resides in configure
     configure() {
+        //add listeners for drag drop events
+        this.element.addEventListener('dragover', this.dragOverHandler);
+        this.element.addEventListener('drop', this.dropHandler);
+        this.element.addEventListener('dragleave', this.dragLeaveHandler);
         //add a listener to project state
         projectState.addListener((projects) => {
             //filter the projects list based on status
@@ -232,6 +253,15 @@ class ProjectList extends Component {
             this.type.toUpperCase() + ' PROJECTS';
     }
 }
+__decorate([
+    autobind
+], ProjectList.prototype, "dragOverHandler", null);
+__decorate([
+    autobind
+], ProjectList.prototype, "dropHandler", null);
+__decorate([
+    autobind
+], ProjectList.prototype, "dragLeaveHandler", null);
 //Project Input class
 class ProjectInput extends Component {
     constructor() {
