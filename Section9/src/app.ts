@@ -70,6 +70,22 @@ class ProjectState extends State<Project> {
     //add this project to projects array
     this.projects.push(newProject);
     //call all listener functions whenever a new project is added
+    this.updateListeners();
+  }
+
+  moveProject(projectId: string, newStatus: ProjectStatus) {
+    //find the project based on project id
+    const project = this.projects.find(prj => prj.projectId === projectId);
+    //move only if project status is changed
+    if (project && project.status !== newStatus) {
+      //if project is found change its status to one supplied
+      project.status = newStatus;
+      //call all listener functions whenever a project is moved
+      this.updateListeners();
+    }
+  }
+
+  private updateListeners() {
     for (const listenerFn of this.listeners) {
       //call listener function passing the copy of projects array
       listenerFn(this.projects.slice());
@@ -258,7 +274,15 @@ class ProjectList
   }
   @autobind
   dropHandler(event: DragEvent): void {
-    console.log('drop', event.dataTransfer!.getData('text/plain'));
+    const projectId = event.dataTransfer!.getData('text/plain');
+    projectState.moveProject(
+      projectId,
+      this.type === 'active' ? ProjectStatus.Active : ProjectStatus.Finished
+    );
+    //Fetch the ul element
+    const listEl = this.element.querySelector('ul')!;
+    //remove the droppable class to revert ui changes after drop end
+    listEl.classList.remove('droppable');
   }
   @autobind
   dragLeaveHandler(event: DragEvent): void {
