@@ -17,8 +17,8 @@
     "sourceMap": true /* Generates corresponding '.map' file. */,
     //"sourceRoot": "../../" /*Specifies the location where debugger should locate TypeScript files instead of source locations.*/,
     // "outFile": "./Section10/dist/bundle.js",                       /* Concatenate and emit output to single file. */
-    "outDir": "./Section11/dist" /* Redirect output structure to the directory. */,
-    //"rootDir": "./Section11/src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
+    "outDir": "./Section12/dist" /* Redirect output structure to the directory. */,
+    //"rootDir": "./Section12/src" /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */,
     // "composite": true,                     /* Enable project compilation */
     // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */
     // "removeComments": true /* Do not emit comments to output. */,
@@ -26,7 +26,7 @@
     // "importHelpers": true,                 /* Import emit helpers from 'tslib'. */
     // "downlevelIteration": true,            /* Provide full support for iterables in 'for-of', spread, and destructuring when targeting 'ES5' or 'ES3'. */
     // "isolatedModules": true,               /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     /* Strict Type-Checking Options */
     "strict": true /* Enable all strict type-checking options. */,
     // "noImplicitAny": false /* Raise error on expressions and declarations with an implied 'any' type. */,
@@ -44,7 +44,7 @@
     //"noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
 
     /* Module Resolution Options */
-    // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
+     "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     // "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
     // "paths": {},                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
@@ -79,6 +79,7 @@
     "./Section7/*",
     "./Section8/*",
 	  "./Section9/*",
-	  "./Section10/*"
+	  "./Section10/*",
+	  "./Section11/*"
   ]
 }
