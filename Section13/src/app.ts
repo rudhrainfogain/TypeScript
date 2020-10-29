@@ -1,10 +1,18 @@
 import axios from 'axios';
+import { Map, View } from 'ol';
+import TileLayer from 'ol/layer/Tile';
+import { fromLonLat } from 'ol/proj';
+import OSM from 'ol/source/OSM';
+
 //get access to  form
 const form = document.querySelector('form')!;
 //get access to input box
 const addressInput = document.getElementById('address')! as HTMLInputElement;
 //custom type for response for address search
 type coordinates = [{ lat: number; lon: number }];
+//declare var for openlayers
+//declare var ol: any;
+
 //  search handler function
 function searchAddressHandler(event: Event) {
   //prevent default behaviour of form submission
@@ -29,6 +37,35 @@ function searchAddressHandler(event: Event) {
       const longitude = response.data[0].lon;
       console.log('lat', latitude);
       console.log('lon', longitude);
+      //clear the div before rendering the map
+      document.getElementById('map')!.innerHTML = '';
+      //render the map
+
+      new Map({
+        target: 'map',
+        layers: [
+          new TileLayer({
+            source: new OSM()
+          })
+        ],
+        view: new View({
+          center: fromLonLat([longitude, latitude]),
+          zoom: 16
+        })
+      });
+
+      /* new ol.Map({
+        target: 'map',
+        layers: [
+          new ol.layer.Tile({
+            source: new ol.source.OSM()
+          })
+        ],
+        view: new ol.View({
+          center: ol.proj.fromLonLat([longitude, latitude]),
+          zoom: 16
+        })
+      }); */
     })
     .catch(error => {
       //throw an alert in case of error
