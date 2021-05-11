@@ -36,7 +36,7 @@
         "axios": "^0.21.0",
         "class-transformer": "^0.3.1",
         "class-validator": "^0.12.2",
-        "lodash": "^4.17.20",
+        "lodash": "^4.17.21",
         "minimist": "^1.2.5",
         "ol": "^6.4.3",
         "reflect-metadata": "^0.1.13"
